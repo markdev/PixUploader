@@ -24,7 +24,7 @@
 		}
 		if (empty($errors)) {
 			// log in!
-			$_SESSION['user'] = array("email" => $users[0]['email'], "permission" => $users[0]['permission']);
+			$_SESSION['user'] = array("id" => $users[0]['id'], "email" => $users[0]['email'], "permission" => $users[0]['permission']);
 			if ($_SESSION['user']['permission'] == "admin") {
 				header("Location: http://localhost/dashboard_admin.php");
 			} else if ($_SESSION['user']['permission'] == "user") {

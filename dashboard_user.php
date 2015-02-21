@@ -13,7 +13,7 @@
 				<hr/>
 				<form action="dashboard_userAjax.php" method="post" name="uploader" enctype="multipart/form-data">
 					<input type="file" id="fileToUpload" name="fileToUpload" />
-					<input type="hidden" name="email" value="' . $_SESSION['user']['email'] . '" />
+					<input type="hidden" name="uid" value="' . $_SESSION['user']['id'] . '" />
 					<input type="submit"/>
 				</form>
 				<!-- <button id="sendImage">Send</button> -->
