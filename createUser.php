@@ -22,6 +22,7 @@
 		or die("Unable to select database");
 
 	if (!empty($_POST)) {
+		print_r($_POST);
 		// Boy is this insecure
 		$sql = 'SELECT * FROM Users WHERE email = "' . $_POST['email'] . '" AND PASSWORD = "' . md5($_POST['password']) . '"';
 		$res = mysql_query($sql);
@@ -42,7 +43,10 @@
 				header("Location: http://localhost/dashboard_user.php");
 			}
 		}
-	} 
+	} else {
+
+	}
+
 
 	echo '
 	<!DOCTYPE HTML>
@@ -76,6 +80,15 @@
 						<td><input type="password" name="password2" id="password2"/></td>
 					</tr>
 					<tr>
+						<td>Permission Level:</td>
+						<td>
+							<select id="permission" name="permission">
+								<option value="user">User</option>
+								<option value="admin">Admin</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
 						<td colspan="2"></td>
 					</tr>
 				</table>
@@ -90,6 +103,7 @@
 						var email = $("input#email").val();
 						var password = $("input#password").val();
 						var password2 = $("input#password2").val();
+						var permission = $("select#permission").val();
 						var errors = [];
 						if (email == "") errors[errors.length] = ("Email field cannot be blank");
     					var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -97,12 +111,25 @@
 						if (password == "") errors[errors.length] = "password field cannot be empty";
 						if (password !== password2) errors[errors.length] = "passwords must match";
 						if (errors.length == 0) {
-							console.log("submission time!");
+							var data = {
+								email: email,
+								password: password,
+								permission: permission
+							};
+							console.log(data);
+							$.ajax({
+								type: "post",
+								url: "createUserAjax.php",
+								data: data,
+								success: function (response) {
+									console.log(response);
+								}
+							});
 						} else {
-							console.log(errors);
 							for (var i=0; i<errors.length; i++) {
 								$("ul#errors").append("<li>" + errors[i] + "</li>");
 							}
+							console.log($("select#permission").val());
 						}
 					});
 				})
