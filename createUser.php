@@ -122,7 +122,9 @@
 								url: "createUserAjax.php",
 								data: data,
 								success: function (response) {
-									console.log(response);
+									if (response) {
+										window.location.replace("http://localhost/index.php");
+									}
 								}
 							});
 						} else {
