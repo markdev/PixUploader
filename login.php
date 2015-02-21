@@ -20,10 +20,13 @@
 		or die("Unable to select database");
 
 	if (!empty($_POST)) {
-		print_r($_POST);
-	} else {
-		echo "NO POST";
-	}
+		// Boy is this insecure
+		$sql = 'SELECT * FROM Users WHERE email = "' . $_POST['email'] . '" AND PASSWORD = "' . md5($_POST['password']) . '"';
+		$res = mysql_query($sql);
+		while ($row = mysql_fetch_array($res)) {
+			print_r($row);
+		}
+	} 
 
 	$page = '
 	<!DOCTYPE HTML>
