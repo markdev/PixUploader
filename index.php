@@ -1,16 +1,5 @@
 <?php
 	require_once("dbheader.php");
-	/*
-	$sql = "SELECT * from Users";
-	$result = mysql_query($sql);
-	while ($row = mysql_fetch_array($result)) {
-		print_r($row);
-	}
-	*/
-
-	// testing
-	//$_SESSION['admin'] = array('permission' => 'admin');
-	//$_SESSION['user'] = array('permission' => 'user');
 
 	if (empty($_SESSION['user'])) {
 		// forces redirect to login page if no one is logged in
