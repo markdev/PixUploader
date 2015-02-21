@@ -52,13 +52,16 @@
 		</head>
 		<body>
 			<h1>Create an Account</h1>
+			<ul id="errors" style="color: #f00;">
 	';
 /*
 	if (!empty($errors)) {
 		echo '<p style="color: #f00">' . $errors[0] . '</p>';
 	}
 */
-	echo '<form action="createUser.php" name="login" method="post">
+	echo '	
+			</ul>
+			<form action="createUser.php" name="login" method="post">
 				<table>
 					<tr>
 						<td>Email: </td>
@@ -83,6 +86,7 @@
 			<script>
 				$(document).ready(function() {
 					$("button#click").click(function(){
+						$("ul#errors").empty();
 						var email = $("input#email").val();
 						var password = $("input#password").val();
 						var password2 = $("input#password2").val();
@@ -96,6 +100,9 @@
 							console.log("submission time!");
 						} else {
 							console.log(errors);
+							for (var i=0; i<errors.length; i++) {
+								$("ul#errors").append("<li>" + errors[i] + "</li>");
+							}
 						}
 					});
 				})
