@@ -19,16 +19,32 @@
 	mysql_select_db(DATABASE_NAME) 
 		or die("Unable to select database");
 
+	session_start();
+
 	if (!empty($_POST)) {
 		// Boy is this insecure
 		$sql = 'SELECT * FROM Users WHERE email = "' . $_POST['email'] . '" AND PASSWORD = "' . md5($_POST['password']) . '"';
 		$res = mysql_query($sql);
+		$users = array();
+		$errors = array();
 		while ($row = mysql_fetch_array($res)) {
-			print_r($row);
+			$users[] = $row;
+		}
+		if (empty($users)) {
+			$errors[] = "Your username or password is incorrect";
+		}
+		if (empty($errors)) {
+			// log in!
+			$_SESSION['user'] = array("email" => $users[0]['email'], "permission" => $users[0]['permission']);
+			if ($_SESSION['user']['permission'] == "admin") {
+				header("Location: http://localhost/dashboard_admin.php");
+			} else if ($_SESSION['user']['permission'] == "user") {
+				header("Location: http://localhost/dashboard_user.php");
+			}
 		}
 	} 
 
-	$page = '
+	echo '
 	<!DOCTYPE HTML>
 	<html>
 		<head>
@@ -36,7 +52,13 @@
 		</head>
 		<body>
 			<h1>Login</h1>
-			<form action="login.php" name="login" method="post">
+	';
+
+	if (!empty($errors)) {
+		echo '<p style="color: #f00">' . $errors[0] . '</p>';
+	}
+
+	echo '<form action="login.php" name="login" method="post">
 				<table>
 					<tr>
 						<td>Email: </td>
