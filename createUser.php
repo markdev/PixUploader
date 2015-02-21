@@ -48,17 +48,17 @@
 	<!DOCTYPE HTML>
 	<html>
 		<head>
-
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		</head>
 		<body>
-			<h1>Login</h1>
+			<h1>Create an Account</h1>
 	';
-
+/*
 	if (!empty($errors)) {
 		echo '<p style="color: #f00">' . $errors[0] . '</p>';
 	}
-
-	echo '<form action="login.php" name="login" method="post">
+*/
+	echo '<form action="createUser.php" name="login" method="post">
 				<table>
 					<tr>
 						<td>Email: </td>
@@ -69,16 +69,20 @@
 						<td><input type="password" name="password"/></td>
 					</tr>
 					<tr>
+						<td>Confirm Password: </td>
+						<td><input type="password2" name="password2"/></td>
+					</tr>
+					<tr>
 						<td colspan="2"><input type="submit"/></td>
 					</tr>
 				</table>
 			</form>
-			<a href="createUser.php">Create an account</a>
+			<a href="login.php">Back to Log In</a>
+			<script>
+				$(document).ready(function() {
+					console.log("Hellllloooooo from jquery");
+				})
+			</script>
 		</body>
 	</html>
 	';
-
-	echo $page;
-
-	mysql_close($db);
-?>
