@@ -86,9 +86,11 @@
 						var email = $("input#email").val();
 						var password = $("input#password").val();
 						var password2 = $("input#password2").val();
-						console.log(email);
-						console.log(password);
-						console.log(password2);
+						var errors = [];
+						if (email == "") errors[errors.length] = ("Email field cannot be blank");
+    					var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+						if (re.test(email) == false) errors[errors.length] = "Email field must be a valid email";
+						console.log(errors);
 					});
 				})
 			</script>
