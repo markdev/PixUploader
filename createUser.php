@@ -62,25 +62,34 @@
 				<table>
 					<tr>
 						<td>Email: </td>
-						<td><input type="text" name="email"/></td>
+						<td><input type="text" name="email" id="email"/></td>
 					</tr>
 					<tr>
 						<td>Password: </td>
-						<td><input type="password" name="password"/></td>
+						<td><input type="password" name="password" id="password"/></td>
 					</tr>
 					<tr>
 						<td>Confirm Password: </td>
-						<td><input type="password2" name="password2"/></td>
+						<td><input type="password" name="password2" id="password2"/></td>
 					</tr>
 					<tr>
-						<td colspan="2"><input type="submit"/></td>
+						<td colspan="2"></td>
 					</tr>
 				</table>
 			</form>
+			<button id="click"/>Submit</button>
+			<br/><br/>
 			<a href="login.php">Back to Log In</a>
 			<script>
 				$(document).ready(function() {
-					console.log("Hellllloooooo from jquery");
+					$("button#click").click(function(){
+						var email = $("input#email").val();
+						var password = $("input#password").val();
+						var password2 = $("input#password2").val();
+						console.log(email);
+						console.log(password);
+						console.log(password2);
+					});
 				})
 			</script>
 		</body>
