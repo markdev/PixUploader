@@ -21,13 +21,15 @@
 
 <?php
 	$images = $user->getAllImages();
-	foreach ($images as $image) { ?>
-		<div class="imgFrame" id="<?=$image['id']?>">
-			<img src="images/<?=$image['hash']?>"/>
-			<br/>
-			<button class="delete" id="<?=$image['id']?>">Delete</button>
-		</div>
-<?php } ?>
+	if ($images) {
+		foreach ($images as $image) { ?>
+			<div class="imgFrame" id="<?=$image['id']?>">
+				<img src="images/<?=$image['hash']?>"/>
+				<br/>
+				<button class="delete" id="<?=$image['id']?>">Delete</button>
+			</div>
+<?php 	} 
+	} ?>
 
 		<script>
 			$(document).ready(function() {

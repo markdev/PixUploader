@@ -15,24 +15,19 @@
 		$user->authenticate($_POST['email'], $_POST['password']);
 	}
 
+	include("htmlhead.php");
+?>
 
-	echo '
-	<!DOCTYPE HTML>
-	<html>
-		<head>
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-		</head>
-		<body>
-			<h1>Create an Account</h1>
-			<ul id="errors" style="color: #f00;">
-	';
-/*
+	<body>
+		<h1>Create an Account</h1>
+		<ul id="errors" style="color: #f00;">
+
+<?php
 	if (!empty($errors)) {
 		echo '<p style="color: #f00">' . $errors[0] . '</p>';
 	}
-*/
-	echo '	
-			</ul>
+?>
+		</ul>
 			<form action="createUser.php" name="login" method="post">
 				<table>
 					<tr>
@@ -106,4 +101,3 @@
 			</script>
 		</body>
 	</html>
-	';
