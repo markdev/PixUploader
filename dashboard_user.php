@@ -37,6 +37,8 @@
 					$(document).ready(function() {
 						$("form[name=\'uploader\']").submit(function(e){
 							var formData = new FormData($(this)[0]);
+							formData.method = "uploadImage";
+							console.log(formData);
 							$.ajax({
 								url: "dashboard_userAjax.php",
 								type: "POST",
@@ -55,17 +57,21 @@
 							var conf = confirm("Are you sure you want to delete this image?");
 							if (conf) {
 								var id = $(this).attr('id');
-								var data = { id : id };
+								var data = { 
+									id : id,
+									method: "deletePic" 
+								};
 								console.log(data);
 								$.ajax({
 									type: "post",
-									url: "dashboard_userAjax_delete.php",
+									url: "dashboard_userAjax.php",
 									data: data,
 									success: function (res) {
 									    if (res == 1) {
 									    	$('div#' + id).fadeOut();
 									    }
 									},
+
 								});
 					
 							}

@@ -54,6 +54,11 @@ class User {
 		return $images;
 	}
 
+	public function deleteImage($id) {
+		$sql = "DELETE FROM Images WHERE id=" . $id;
+		return mysql_query($sql);
+	}
+
 	public function logout() {
 		if(isset($_SESSION['user'])) {
 			unset($_SESSION['user']);
