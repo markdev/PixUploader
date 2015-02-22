@@ -24,14 +24,13 @@
 
 <?php
 	$images = $user->getAllImages();
-	foreach ($images as $image) {
-		echo '<div class="imgFrame" id="' . $image['id'] . '">';
-		echo '<img src="images/' . $image['hash'] . '"/>';
-		echo '<br/>';
-		echo '<button class="delete" id="' . $image['id'] . '">Delete</button>'; 
-		echo '</div>';
-	}
-?>
+	foreach ($images as $image) { ?>
+		<div class="imgFrame" id="<?=$image['id']?>">
+			<img src="images/<?=$image['hash']?>"/>
+			<br/>
+			<button class="delete" id="<?=$image['id']?>">Delete</button>
+		</div>
+<?php } ?>
 
 				<script>
 					$(document).ready(function() {
@@ -72,9 +71,7 @@
 									    	$('div#' + id).fadeOut();
 									    }
 									},
-
 								});
-					
 							}
 						});
 					});
