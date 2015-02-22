@@ -48,7 +48,7 @@
 								for (var i=0; i<response.images.length; i++) {
 									imageString += '<div class="imgFrame"><img src="images/' + response.images[i].hash + '" /></div>';
 								}
-								$('ul#picturelist').append('<li class="displayitem" id="img' + response.user.id + '"><div class="userdisplay" id="' + response.user.id + '"><p>'+ response.user.email+ '</p>' + imageString + '</div></li>');
+								$('ul#picturelist').append('<li class="displayitem" id="img' + response.user.id + '"><div class="userdisplay" id="' + response.user.id + '"><p>'+ response.user.email+ '</p>' + imageString + '</div></li><div style="clear:both;"></div><br/>');
 								console.log(response);
 							}
 						});
