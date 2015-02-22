@@ -2,8 +2,8 @@
 	require_once("dbheader.php");
 	require_once("User.php");
 	$user = new User();
+?>
 
-	echo '
 		<html>
 			<head>
 				<link rel="stylesheet" type="text/css" href="PixUploader.css">
@@ -11,7 +11,7 @@
 			</head>
 			<body>
 				<h1>Dashboard User</h1>
-				<p>Welcome, ' . $user->email . '!
+				<p>Welcome, <?=$user->email?> !</p>
 				<a href="logout.php">Log Out</a>
 				<hr/>
 				<form method="post" name="uploader" enctype="multipart/form-data">
@@ -19,16 +19,16 @@
 					<input type="hidden" name="uid" value="' . $user->id . '" />
 					<input type="submit"/>
 				</form>
-				<!-- <button id="sendImage">Send</button> -->
 				<hr/>
-		';
+				
 
+<?php
 	$images = $user->getAllImages();
 	foreach ($images as $image) {
 		echo '<img src="images/' . $image['hash'] . '"/>';
 	}
+?>
 
-	echo '
 				<script>
 					$(document).ready(function() {
 						$("form[name=\'uploader\']").submit(function(e){
@@ -52,5 +52,3 @@
 				</script>
 			</body>
 		</html>
-	';
-?>
