@@ -1,6 +1,7 @@
 <?php
 
 	require_once("dbheader.php");
+	require_once("User.php");
 
 	if (isset($_SESSION['user']) && $_SESSION['user']['permission'] == "admin") {
 		// admin dashboard
@@ -11,26 +12,8 @@
 	}
 
 	if (!empty($_POST)) {
-		// Boy is this insecure
-		$sql = 'SELECT * FROM Users WHERE email = "' . $_POST['email'] . '" AND PASSWORD = "' . md5($_POST['password']) . '"';
-		$res = mysql_query($sql);
-		$users = array();
-		$errors = array();
-		while ($row = mysql_fetch_array($res)) {
-			$users[] = $row;
-		}
-		if (empty($users)) {
-			$errors[] = "Your username or password is incorrect";
-		}
-		if (empty($errors)) {
-			// log in!
-			$_SESSION['user'] = array("id" => $users[0]['id'], "email" => $users[0]['email'], "permission" => $users[0]['permission']);
-			if ($_SESSION['user']['permission'] == "admin") {
-				header("Location: http://localhost/dashboard_admin.php");
-			} else if ($_SESSION['user']['permission'] == "user") {
-				header("Location: http://localhost/dashboard_user.php");
-			}
-		}
+		$user = new User();
+		$user->authenticate($_POST['email'], $_POST['password']);
 	} 
 
 	echo '
