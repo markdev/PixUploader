@@ -2,12 +2,16 @@
 
 class User {
 
+	private $id = "";
+	private $email = "";
+	private $permission = "";
+
 	public function __construct() {
 
 	}
 
 	public function authenticate($email, $password) {
-		$sql = 'SELECT * FROM Users WHERE email = "' . $_POST['email'] . '" AND PASSWORD = "' . md5($_POST['password']) . '"';
+		$sql = 'SELECT * FROM Users WHERE email = "' . $email . '" AND PASSWORD = "' . md5($password) . '"';
 		$res = mysql_query($sql);
 		$users = array();
 		$errors = array();
@@ -18,18 +22,20 @@ class User {
 			$errors[] = "Your username or password is incorrect";
 		}
 		if (empty($errors)) {
-			// log in!
-			$_SESSION['user'] = array("id" => $users[0]['id'], "email" => $users[0]['email'], "permission" => $users[0]['permission']);
-			if ($_SESSION['user']['permission'] == "admin") {
-				header("Location: http://localhost/dashboard_admin.php");
-			} else if ($_SESSION['user']['permission'] == "user") {
-				header("Location: http://localhost/dashboard_user.php");
-			}
+			$this->id = $users[0]['id'];
+			$this->email = $users[0]['email'];
+			$this->permission = $users[0]['permission'];
+			$this->login();
 		}
 	}
 
-	public function login() {
-
+	private function login() {
+		$_SESSION['user'] = array("id" => $this->id, "email" => $this->email, "permission" => $this->permission);
+		if ($_SESSION['user']['permission'] == "admin") {
+			header("Location: http://localhost/dashboard_admin.php");
+		} else if ($_SESSION['user']['permission'] == "user") {
+			header("Location: http://localhost/dashboard_user.php");
+		}
 	}
 
 	public function logout() {
