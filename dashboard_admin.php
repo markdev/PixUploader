@@ -14,12 +14,12 @@
 		<table style="width: 100%; min-height: 100%">
 			<tr>
 				<td style="width: 300px; background-color: #77f">
-					<ul>
+					<ul id="userlist">
 
 <?  $users = User::getAllUsers();
 	foreach ($users as $user) { ?>
 		<li id="<?=$user['id']?>">
-			<input type="checkbox" id="<?=$user['id']?>" />
+			<input type="checkbox" class="usercheck" id="<?=$user['id']?>" />
 			<label><?=$user['email']?></label>
 		</li>
 <?  } ?>
@@ -27,6 +27,19 @@
 					</ul>
 				</td>
 				<td>
+					<ul id="picturelist">
+					</ul>
 				</td>
 			</tr>
 		</table>
+		<script>
+			$(document).ready(function() {
+				$('input.usercheck').click(function() {
+					if ($(this).is(':checked')) {
+						console.log("checked!!");
+					} else {
+						console.log("not checked");
+					}
+				});
+			});
+		</script>
