@@ -1,5 +1,4 @@
 <?php
-
 	require_once("dbheader.php");
 	require_once("User.php");
 
@@ -16,21 +15,17 @@
 		$user->authenticate($_POST['email'], $_POST['password']);
 	} 
 
-	echo '
-	<!DOCTYPE HTML>
-	<html>
-		<head>
-
-		</head>
+	include("htmlhead.php");
+?>
 		<body>
 			<h1>Login</h1>
-	';
 
+<?
 	if (!empty($errors)) {
 		echo '<p style="color: #f00">' . $errors[0] . '</p>';
 	}
-
-	echo '<form action="login.php" name="login" method="post">
+?>
+			<form action="login.php" name="login" method="post">
 				<table>
 					<tr>
 						<td>Email: </td>
@@ -48,9 +43,7 @@
 			<a href="createUser.php">Create an account</a>
 		</body>
 	</html>
-	';
 
-	echo $page;
-
+<?php
 	mysql_close($db);
 ?>
