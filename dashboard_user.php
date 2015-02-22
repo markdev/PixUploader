@@ -7,7 +7,7 @@
 ?>
 
 	<body>
-		<h1>Dashboard User</h1>
+		<h1>User Dashboard</h1>
 		<p>Welcome, <?=$user->email?> !</p>
 		<a href="logout.php">Log Out</a>
 		<hr/>

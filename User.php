@@ -78,10 +78,14 @@ class User {
 		$sql = "SELECT * FROM Images WHERE uid = " . $this->id . " ORDER BY image_order";
 		$res = mysql_query($sql);
 		$images = array();
-		while ($row = mysql_fetch_array($res)) {
-			$images[] = $row;
+		if (is_resource($res)) {
+			while ($row = mysql_fetch_array($res)) {
+				$images[] = $row;
+			}
+			return $images;
+		} else {
+			return false;
 		}
-		return $images;
 	}
 
 	public function deleteImage($id) {

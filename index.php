@@ -12,9 +12,5 @@
 		header("Location: dashboard_user.php");
 	}
 
-	print_r($_SESSION);
-
 	mysql_close($db);
-
-	echo "Connected to Mysql";
 ?>
