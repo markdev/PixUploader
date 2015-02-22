@@ -1,10 +1,6 @@
 <?php
 	require_once("dbheader.php");
 	require_once("User.php");
-/*
-	print_r($_POST);
-	print_r($_FILES);
-*/
 
 	function deletePic() {
 		$user = new User();
@@ -39,8 +35,11 @@
 	}
 
 	if (!empty($_POST)) {
-		if ($_POST['method'] == "deletePic") { deletePic(); }
-		if ($_POST['method'] == "uploadImage") { uploadImage(); }
+		if (isset($_POST['method']) && $_POST['method'] == "deletePic") { 
+			deletePic(); 
+		} else { // yes this is messy, but there are only two methods here
+			uploadImage(); 
+		}
 	}
 
 ?>

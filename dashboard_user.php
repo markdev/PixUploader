@@ -16,7 +16,7 @@
 				<hr/>
 				<form method="post" name="uploader" enctype="multipart/form-data">
 					<input type="file" id="fileToUpload" name="fileToUpload" />
-					<input type="hidden" name="uid" value="' . $user->id . '" />
+					<input type="hidden" name="uid" value="<?=$user->id?>" />
 					<input type="submit"/>
 				</form>
 				<hr/>
@@ -37,7 +37,7 @@
 					$(document).ready(function() {
 						$("form[name=\'uploader\']").submit(function(e){
 							var formData = new FormData($(this)[0]);
-							formData.method = "uploadImage";
+							//formData.method = "uploadImage";
 							console.log(formData);
 							$.ajax({
 								url: "dashboard_userAjax.php",
@@ -67,6 +67,7 @@
 									url: "dashboard_userAjax.php",
 									data: data,
 									success: function (res) {
+										console.log(res);
 									    if (res == 1) {
 									    	$('div#' + id).fadeOut();
 									    }
