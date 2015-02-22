@@ -2,3 +2,8 @@ img {
 	width: 150px;
 	height: 225px;
 }
+
+div.imgFrame {
+	float: left;
+	padding: 5px;
+}

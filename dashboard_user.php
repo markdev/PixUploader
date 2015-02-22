@@ -20,12 +20,16 @@
 					<input type="submit"/>
 				</form>
 				<hr/>
-				
+
 
 <?php
 	$images = $user->getAllImages();
 	foreach ($images as $image) {
+		echo '<div class="imgFrame" id="' . $image['id'] . '">';
 		echo '<img src="images/' . $image['hash'] . '"/>';
+		echo '<br/>';
+		echo '<button class="delete" id="' . $image['id'] . '">Delete</button>'; 
+		echo '</div>';
 	}
 ?>
 
@@ -44,9 +48,27 @@
 								cache: false,
 								contentType: false,
 								processData: false
-							});
+							});						
+						});
 
-							//e.preventDefault();							
+						$('button.delete').click(function(){
+							var conf = confirm("Are you sure you want to delete this image?");
+							if (conf) {
+								var id = $(this).attr('id');
+								var data = { id : id };
+								console.log(data);
+								$.ajax({
+									type: "post",
+									url: "dashboard_userAjax_delete.php",
+									data: data,
+									success: function (res) {
+									    if (res == 1) {
+									    	$('div#' + id).fadeOut();
+									    }
+									},
+								});
+					
+							}
 						});
 					});
 				</script>
