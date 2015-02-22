@@ -25,6 +25,26 @@ class User {
 		}		
 	}
 
+	public static function getById($uid) {
+		$sql = 'SELECT id, email, permission FROM Users WHERE id=' . $uid . ' LIMIT 1';
+		$res = mysql_query($sql);
+		$users = array();
+		while ($row = mysql_fetch_array($res)) {
+			$users[] = $row;
+		}
+		return $users[0];
+	}
+
+	public static function getImagesByUserId($uid) {
+		$sql = 'SELECT id, hash FROM Images WHERE uid=' . $uid;
+		$res = mysql_query($sql);
+		$images = array();
+		while ($row = mysql_fetch_array($res)) {
+			$images[] = $row;
+		}
+		return $images;
+	}
+
 	public static function getAllUsers() {
 		$sql = 'SELECT id, email FROM Users';
 		$res = mysql_query($sql);

@@ -36,7 +36,22 @@
 			$(document).ready(function() {
 				$('input.usercheck').click(function() {
 					if ($(this).is(':checked')) {
-						console.log("checked!!");
+						var data = { uid : $(this).attr('id') };
+						$.ajax({
+							url: "dashboard_adminAjax.php",
+							type: "POST",
+							data: data,
+							success: function(res) {
+								var response = JSON.parse(res);
+								var imageString = "";
+								console.log(response.images[1]);
+								for (var i=0; i<response.images.length; i++) {
+									imageString += '<div class="imgFrame"><img src="images/' + response.images[i].hash + '" /></div>';
+								}
+								$('ul#picturelist').append('<li><div class="userdisplay" id="' + response.user.id + '"><p>'+ response.user.email+ '</p>' + imageString + '</div></li>');
+								console.log(response);
+							}
+						});
 					} else {
 						console.log("not checked");
 					}
