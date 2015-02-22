@@ -25,6 +25,16 @@ class User {
 		}		
 	}
 
+	public static function getAllUsers() {
+		$sql = 'SELECT id, email FROM Users';
+		$res = mysql_query($sql);
+		$users = array();
+		while ($row = mysql_fetch_array($res)) {
+			$users[] = $row;
+		}
+		return $users;
+	}
+
 	public function authenticate($email, $password) {
 		$sql = 'SELECT * FROM Users WHERE email = "' . $email . '" AND PASSWORD = "' . md5($password) . '"';
 		$res = mysql_query($sql);
