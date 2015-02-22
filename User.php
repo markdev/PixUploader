@@ -2,12 +2,27 @@
 
 class User {
 
-	private $id = "";
-	private $email = "";
-	private $permission = "";
+	public $id = "";
+	public $email = "";
+	public $permission = "";
 
 	public function __construct() {
+		if (isset($_SESSION['user'])) {
+			$this->id = $_SESSION['user']['id'];
+			$this->email = $_SESSION['user']['email'];
+			$this->permission = $_SESSION['user']['permission'];
+		}
+	}
 
+	public static function create($email, $password, $permission) {
+		$sql = 'INSERT INTO Users (email, password, permission, created_on) VALUES ("' . $email .'", md5("' . $password . '"), "' . $permission . '", NOW())';
+		$res = mysql_query($sql);
+		if ($res == 1) {
+			$_SESSION['user'] = array('email' => $email, 'permission' => $permission);
+			return true;
+		} else {
+			return false;
+		}		
 	}
 
 	public function authenticate($email, $password) {
@@ -29,13 +44,14 @@ class User {
 		}
 	}
 
-	private function login() {
-		$_SESSION['user'] = array("id" => $this->id, "email" => $this->email, "permission" => $this->permission);
-		if ($_SESSION['user']['permission'] == "admin") {
-			header("Location: http://localhost/dashboard_admin.php");
-		} else if ($_SESSION['user']['permission'] == "user") {
-			header("Location: http://localhost/dashboard_user.php");
+	public function getAllImages() {
+		$sql = "SELECT * FROM Images WHERE uid = " . $this->id . " ORDER BY image_order";
+		$res = mysql_query($sql);
+		$images = array();
+		while ($row = mysql_fetch_array($res)) {
+			$images[] = $row;
 		}
+		return $images;
 	}
 
 	public function logout() {
@@ -45,15 +61,13 @@ class User {
 		header("Location: http://localhost/index.php");
 	}
 
-	public static function create($email, $password, $permission) {
-		$sql = 'INSERT INTO Users (email, password, permission, created_on) VALUES ("' . $email .'", md5("' . $password . '"), "' . $permission . '", NOW())';
-		$res = mysql_query($sql);
-		if ($res == 1) {
-			$_SESSION['user'] = array('email' => $email, 'permission' => $permission);
-			return true;
-		} else {
-			return false;
-		}		
+	private function login() {
+		$_SESSION['user'] = array("id" => $this->id, "email" => $this->email, "permission" => $this->permission);
+		if ($_SESSION['user']['permission'] == "admin") {
+			header("Location: http://localhost/dashboard_admin.php");
+		} else if ($_SESSION['user']['permission'] == "user") {
+			header("Location: http://localhost/dashboard_user.php");
+		}
 	}
 }
 
