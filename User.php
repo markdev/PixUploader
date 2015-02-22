@@ -39,7 +39,10 @@ class User {
 	}
 
 	public function logout() {
-
+		if(isset($_SESSION['user'])) {
+			unset($_SESSION['user']);
+		}
+		header("Location: http://localhost/index.php");
 	}
 
 	public static function create($email, $password, $permission) {
